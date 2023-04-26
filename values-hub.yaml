@@ -8,6 +8,7 @@ clusterGroup:
     - golang-external-secrets
     - config-demo
     - hello-world
+    - babeljenks
 
   subscriptions:
     acm:
@@ -20,6 +21,7 @@ clusterGroup:
     - hub
     - config-demo
     - hello-world
+    - babeljenks
 
   applications:
     acm:
@@ -56,6 +58,12 @@ clusterGroup:
       namespace: hello-world
       project: hello-world
       path: charts/all/hello-world
+
+    babeljenks:
+      name: babeljenks
+      namespace: babeljenks
+      project: babeljenks
+      path: charts/all/babeljenks
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
