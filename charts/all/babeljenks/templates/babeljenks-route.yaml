@@ -1,9 +1,9 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
+  name: babeljenks
   labels:
     app: babeljenks
-  name: babeljenks
 spec:
   port:
     targetPort: 8000-tcp
