@@ -9,6 +9,7 @@ clusterGroup:
     - config-demo
     - hello-world
     - babeljenks
+    - telescope
 
   subscriptions:
     acm:
@@ -22,6 +23,7 @@ clusterGroup:
     - config-demo
     - hello-world
     - babeljenks
+    - postgresql
 
   applications:
     acm:
@@ -64,6 +66,12 @@ clusterGroup:
       namespace: babeljenks
       project: babeljenks
       path: charts/all/babeljenks
+
+    postgresql:
+      name: postgresql
+      namespace: telescope
+      project: telescope
+      path: charts/all/postgresql
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
