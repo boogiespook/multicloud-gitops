@@ -27,6 +27,7 @@ clusterGroup:
     - telescope-backend
     - telescope-frontend
     - telescope-toggle
+    - telescope-toggle-tabs
 
   applications:
     acm:
@@ -93,6 +94,12 @@ clusterGroup:
       namespace: telescope
       project: telescope
       path: charts/all/telescope-toggle
+
+    telescope-toggle-tabs:
+      name: telescope-toggle-tabs
+      namespace: telescope
+      project: telescope
+      path: charts/all/telescope-toggle-tabs
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
