@@ -1,0 +1,349 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "type": "object",
+    "properties": {
+        "replicaCount": {
+            "type": "integer",
+            "examples": [
+                1
+            ]
+        },
+        "image": {
+            "type": "string",
+            "examples": [
+                "quay.io/telescope/dashboard-react-app:latest"
+            ]
+        },
+        "imagePullPolicy": {
+            "type": "string",
+            "examples": [
+                "Always"
+            ]
+        },
+        "backendUrl": {
+            "type": "string",
+            "examples": [
+                ""
+            ]
+        },
+        "nodeBuildDir": {
+            "type": "string",
+            "examples": [
+                "/opt/app-root/src/build"
+            ]
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "examples": [
+                        "ClusterIP"
+                    ]
+                },
+                "port": {
+                    "type": "integer",
+                    "examples": [
+                        80
+                    ]
+                },
+                "targetport": {
+                    "type": "integer",
+                    "examples": [
+                        3000
+                    ]
+                }
+            },
+            "examples": [{
+                "type": "ClusterIP",
+                "port": 80,
+                "targetport": 3000
+            }]
+        },
+        "probe": {
+            "type": "object",
+            "properties": {
+                "readypath": {
+                    "type": "string",
+                    "examples": [
+                        "/"
+                    ]
+                },
+                "livepath": {
+                    "type": "string",
+                    "examples": [
+                        "/"
+                    ]
+                }
+            },
+            "examples": [{
+                "readypath": "/",
+                "livepath": "/"
+            }]
+        },
+        "route": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "examples": [
+                        true
+                    ]
+                },
+                "annotations": {
+                    "type": "object",
+                    "properties": {},
+                    "examples": [{}]
+                },
+                "path": {
+                    "type": "string",
+                    "examples": [
+                        "/"
+                    ]
+                },
+                "hostname": {
+                    "type": "string",
+                    "examples": [
+                        ""
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": true,
+                "annotations": {},
+                "path": "/",
+                "hostname": ""
+            }]
+        },
+        "resources": {
+            "type": "null",
+            "examples": [
+                null
+            ]
+        },
+        "nodeSelector": {
+            "type": "object",
+            "properties": {},
+            "examples": [{}]
+        },
+        "tolerations": {
+            "type": "array",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "affinity": {
+            "type": "object",
+            "properties": {},
+            "examples": [{}]
+        },
+        "env": {
+            "type": "array",
+            "items": {},
+            "examples": [
+                []
+            ]
+        },
+        "pullSecret": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean",
+                    "examples": [
+                        false
+                    ]
+                },
+                "secretName": {
+                    "type": "string",
+                    "examples": [
+                        "pull-secret"
+                    ]
+                },
+                "secretKey": {
+                    "type": "string",
+                    "examples": [
+                        ".dockerconfigjson"
+                    ]
+                }
+            },
+            "examples": [{
+                "enabled": false,
+                "secretName": "pull-secret",
+                "secretKey": ".dockerconfigjson"
+            }]
+        },
+        "vaultStorage": {
+            "type": "string",
+            "examples": [
+                "vault-backend"
+            ]
+        },
+        "vaultSecret": {
+            "type": "string",
+            "examples": [
+                "vault-secret"
+            ]
+        },
+        "vaultKey": {
+            "type": "string",
+            "examples": [
+                "token"
+            ]
+        },
+        "vault": {
+            "type": "object",
+            "properties": {
+                "registry2": {
+                    "type": "object",
+                    "properties": {
+                        "host": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "examples": [
+                                        "secret/registry2"
+                                    ]
+                                },
+                                "property": {
+                                    "type": "string",
+                                    "examples": [
+                                        "host"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "key": "secret/registry2",
+                                "property": "host"
+                            }]
+                        },
+                        "user": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "examples": [
+                                        "secret/registry2"
+                                    ]
+                                },
+                                "property": {
+                                    "type": "string",
+                                    "examples": [
+                                        "user"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "key": "secret/registry2",
+                                "property": "user"
+                            }]
+                        },
+                        "password": {
+                            "type": "object",
+                            "properties": {
+                                "key": {
+                                    "type": "string",
+                                    "examples": [
+                                        "secret/registry2"
+                                    ]
+                                },
+                                "property": {
+                                    "type": "string",
+                                    "examples": [
+                                        "password"
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "key": "secret/registry2",
+                                "property": "password"
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "host": {
+                            "key": "secret/registry2",
+                            "property": "host"
+                        },
+                        "user": {
+                            "key": "secret/registry2",
+                            "property": "user"
+                        },
+                        "password": {
+                            "key": "secret/registry2",
+                            "property": "password"
+                        }
+                    }]
+                }
+            },
+            "examples": [{
+                "registry2": {
+                    "host": {
+                        "key": "secret/registry2",
+                        "property": "host"
+                    },
+                    "user": {
+                        "key": "secret/registry2",
+                        "property": "user"
+                    },
+                    "password": {
+                        "key": "secret/registry2",
+                        "property": "password"
+                    }
+                }
+            }]
+        }
+    },
+    "examples": [{
+        "replicaCount": 1,
+        "image": "quay.io/telescope/dashboard-react-app:latest",
+        "imagePullPolicy": "Always",
+        "backendUrl": "",
+        "nodeBuildDir": "/opt/app-root/src/build",
+        "service": {
+            "type": "ClusterIP",
+            "port": 80,
+            "targetport": 3000
+        },
+        "probe": {
+            "readypath": "/",
+            "livepath": "/"
+        },
+        "route": {
+            "enabled": true,
+            "annotations": {},
+            "path": "/",
+            "hostname": ""
+        },
+        "resources": null,
+        "nodeSelector": {},
+        "tolerations": [],
+        "affinity": {},
+        "env": [],
+        "pullSecret": {
+            "enabled": false,
+            "secretName": "pull-secret",
+            "secretKey": ".dockerconfigjson"
+        },
+        "vaultStorage": "vault-backend",
+        "vaultSecret": "vault-secret",
+        "vaultKey": "token",
+        "vault": {
+            "registry2": {
+                "host": {
+                    "key": "secret/registry2",
+                    "property": "host"
+                },
+                "user": {
+                    "key": "secret/registry2",
+                    "property": "user"
+                },
+                "password": {
+                    "key": "secret/registry2",
+                    "property": "password"
+                }
+            }
+        }
+    }]
+}

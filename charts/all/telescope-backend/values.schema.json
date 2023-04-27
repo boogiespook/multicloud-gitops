@@ -1,0 +1,62 @@
+{
+    "replicaCount": 1,
+    "image": "quay.io/telescope/telescope-backend:latest",
+    "imagePullPolicy": "Always",
+    "service": {
+      "name": "telescope-backend",
+      "type": "ClusterIP",
+      "port": 80,
+      "targetport": 8080
+    },
+    "probe": {
+      "readypath": "/domains",
+      "livepath": "/domains"
+    },
+    "route": {
+      "name": "telescope-backend",
+      "enabled": true,
+      "annotations": {},
+      "path": "/",
+      "hostname": ""
+    },
+    "resources": null,
+    "nodeSelector": {},
+    "tolerations": [],
+    "affinity": {},
+    "pullSecret": {
+      "enabled": false,
+      "secretName": "pull-secret",
+      "secretKey": ".dockerconfigjson"
+    },
+    "vaultStorage": "vault-backend",
+    "vaultSecret": "vault-secret",
+    "vaultKey": "token",
+    "vault": {
+      "registry2": {
+        "host": {
+          "key": "secret/registry2",
+          "property": "host"
+        },
+        "user": {
+          "key": "secret/registry2",
+          "property": "user"
+        },
+        "password": {
+          "key": "secret/registry2",
+          "property": "password"
+        }
+      }
+    },
+    "postgresql": {
+      "external": false,
+      "init": true,
+      "secretName": "postgresql",
+      "host": "postgresql",
+      "port": 5432,
+      "username": "",
+      "password": "",
+      "adminPassword": "",
+      "database": "telescope",
+      "image": "registry.redhat.io/rhel9/postgresql-13:latest"
+    }
+  }

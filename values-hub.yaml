@@ -24,6 +24,9 @@ clusterGroup:
     - hello-world
     - babeljenks
     - telescope
+    - telescope-backend
+    - telescope-frontend
+    - telescope-toggle
 
   applications:
     acm:
@@ -72,6 +75,24 @@ clusterGroup:
       namespace: telescope
       project: telescope
       path: charts/all/postgresql
+
+    telescope-backend:
+      name: telescope-backend
+      namespace: telescope
+      project: telescope
+      path: charts/all/telescope-backend
+
+    telescope-frontend:
+      name: telescope-frontend
+      namespace: telescope
+      project: telescope
+      path: charts/all/telescope-frontend
+
+    telescope-toggle:
+      name: telescope-toggle
+      namespace: telescope
+      project: telescope
+      path: charts/all/telescope-toggle
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm

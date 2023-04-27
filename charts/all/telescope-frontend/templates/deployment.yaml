@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "telescope-frontend.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "telescope-frontend.fullname" . }}
+    chart: {{ template "telescope-frontend.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ include "telescope-frontend.fullname" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "telescope-frontend.fullname" . }}
+        release: {{ .Release.Name }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      {{- if .Values.pullSecret.enabled }}
+      imagePullSecrets:
+        - name: {{ .Values.pullSecret.secretName }}
+      {{- end}}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image }}"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetport }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.probe.readypath }}
+              port: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.probe.livepath }}
+              port: http
+{{- if .Values.env }}
+          env:
+            {{- tpl (toYaml .Values.env) . | nindent 12 }}
+{{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: {{ .Values.nodeBuildDir }}/config.js
+              readOnly: true      
+              subPath: config.js
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: config
+          configMap: 
+            name: {{ include "telescope-frontend.fullname" . }}-config
+            items: 
+            - key: config.js
+              path: config.js
