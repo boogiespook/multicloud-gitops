@@ -23,7 +23,7 @@ clusterGroup:
     - config-demo
     - hello-world
     - babeljenks
-    - postgresql
+    - telescope
 
   applications:
     acm:
